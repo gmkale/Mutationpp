@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -166,12 +166,12 @@ void checkThermoDBLoad(ThermoDB* db, int flags)
             CHECK(db->species()[4].name() == "O2");
 
             CHECK(db->species()[0].charge() == 0);
-            CHECK(db->species()[0].molecularWeight() == Approx(mw_N));
+            CHECK(db->species()[0].molecularWeight() == Catch::Detail::Approx(mw_N));
             CHECK(db->species()[0].nAtoms() == 1);
             CHECK(db->species()[0].phase() == GAS);
 
             CHECK(db->species()[3].charge() == 0);
-            CHECK(db->species()[3].molecularWeight() == Approx(mw_N + mw_O));
+            CHECK(db->species()[3].molecularWeight() == Catch::Detail::Approx(mw_N + mw_O));
             CHECK(db->species()[3].nAtoms() == 2);
             CHECK(db->species()[3].phase() == GAS);
         }
@@ -195,12 +195,12 @@ void checkThermoDBLoad(ThermoDB* db, int flags)
             CHECK(db->species()[4].name() == "C(gr)"); // solid phase last
 
             CHECK(db->species()[0].charge() == 0);
-            CHECK(db->species()[0].molecularWeight() == Approx(mw_C));
+            CHECK(db->species()[0].molecularWeight() == Catch::Detail::Approx(mw_C));
             CHECK(db->species()[0].nAtoms() == 1);
             CHECK(db->species()[0].phase() == GAS);
 
             CHECK(db->species()[4].charge() == 0);
-            CHECK(db->species()[4].molecularWeight() == Approx(mw_C));
+            CHECK(db->species()[4].molecularWeight() == Catch::Detail::Approx(mw_C));
             CHECK(db->species()[4].nAtoms() == 1);
             CHECK(db->species()[4].phase() == SOLID);
         }

@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -55,7 +55,7 @@ TEST_CASE("Thermal diffusion ratios sum to zero",
                 tmps.setConstant(500.0*i + 500.0);
                 mix.setState(rhoi.data(), tmps.data(), 1);
                 mix.heavyThermalDiffusionRatios(chii.data());
-                CHECK(chii.sum() == Approx(0.0).margin(tol));
+                CHECK(chii.sum() == Catch::Detail::Approx(0.0).margin(tol));
             }
         }
 
@@ -67,7 +67,7 @@ TEST_CASE("Thermal diffusion ratios sum to zero",
                 mix.setState(rhoi.data(), tmps.data(), 1);
                 mix.heavyThermalDiffusionRatios(chii.data());
                 INFO("chii = " << chii);
-                CHECK(chii.sum() == Approx(0.0).margin(tol));
+                CHECK(chii.sum() == Catch::Detail::Approx(0.0).margin(tol));
             }
         }
     )

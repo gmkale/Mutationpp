@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright 2018-2020 von Karman Institute for Fluid Dynamics (VKI)
+ * Copyright 2018 von Karman Institute for Fluid Dynamics (VKI)
  *
  * This file is part of MUlticomponent Thermodynamic And Transport
  * properties for IONized gases in C++ (Mutation++) software package.
@@ -37,6 +37,7 @@ namespace Mutation {
 
 class Surface;
 class SurfaceState;
+class SurfaceProperties;
 
 /**
  *  Interface for the part of Mutation++ responsible for modeling Gas-Surface
@@ -178,6 +179,13 @@ public:
      * @param mdot on return mass blowing flux kg/(m^2-s)
      */
     void getMassBlowingRate(double& mdot);
+
+    /**
+     * Advanced function used mainly for testing which returns a reference
+     * to the SurfaceProperties class. It should be used also when detailed surface
+     * models are considered, without assuming steady surface coverage.
+     */
+    SurfaceProperties& getSurfaceProperties();
 
 private:
     /**

@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -71,9 +71,9 @@ TEST_CASE("setState converts rho*Em to Tm and vice a versa",
             // Check that explicitly set properties still match
             mix.getTemperatures(T2.data());
             for (int i = 0; i < nt; ++i)
-                CHECK(T1[i] == Approx(T2[i]));
+                CHECK(T1[i] == Catch::Detail::Approx(T2[i]));
 
-            CHECK(rho == Approx(mix.density()));
+            CHECK(rho == Catch::Detail::Approx(mix.density()));
 
             // Get the energy vector
             mix.mixtureEnergies(e1.data());
@@ -85,14 +85,14 @@ TEST_CASE("setState converts rho*Em to Tm and vice a versa",
             // Check that implicitly set properties still match
             mix.getTemperatures(T2.data());
             for (int i = 0; i < nt; ++i)
-                CHECK(T2[i] ==  Approx(T2[i]));
+                CHECK(T2[i] ==  Catch::Detail::Approx(T2[i]));
 
-            CHECK(rho == Approx(mix.density()));
+            CHECK(rho == Catch::Detail::Approx(mix.density()));
 
             mix.mixtureEnergies(e2.data());
             e2 *= rho;
             for (int i = 0; i < nt; ++i)
-                CHECK(e1[i] ==  Approx(e2[i]));
+                CHECK(e1[i] ==  Catch::Detail::Approx(e2[i]));
 
             // Get the pressure
             P_T[0] = mix.P();
@@ -103,19 +103,19 @@ TEST_CASE("setState converts rho*Em to Tm and vice a versa",
             mix.setState(mix.Y(), P_T.data(), p_var_set);
 
             // Check that explicitly set properties still match
-            CHECK(P_T[0] == Approx(mix.P()));
+            CHECK(P_T[0] == Catch::Detail::Approx(mix.P()));
 
             mix.getTemperatures(T2.data());
             for (int i = 0; i < nt; ++i)
-                CHECK(T1[i] == Approx(T2[i]));
+                CHECK(T1[i] == Catch::Detail::Approx(T2[i]));
 
             // Check that implicitly set properties still match
-            CHECK(rho == Approx(mix.density()));
+            CHECK(rho == Catch::Detail::Approx(mix.density()));
 
             mix.mixtureEnergies(e2.data());
             e2 *= rho;
             for (int i = 0; i < nt; ++i)
-                CHECK(e1[i] ==  Approx(e2[i]));
+                CHECK(e1[i] ==  Catch::Detail::Approx(e2[i]));
 
         )
     )

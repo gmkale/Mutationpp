@@ -19,7 +19,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include "mutation++.h"
 #include "Configuration.h"
 

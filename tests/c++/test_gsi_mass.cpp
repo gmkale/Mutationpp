@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -97,6 +97,6 @@ TEST_CASE("Solution of the MassBalanceSolver is converged.",
         // Compute error
          double err = F.lpNorm<Infinity>();
 
-        CHECK(err == Approx(0.0).epsilon(tol));
+        CHECK(err == Catch::Detail::Approx(0.0).epsilon(tol));
     )
 }

@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -52,23 +52,23 @@ TEST_CASE("Converting thermodynamic properties of species and elements",
 
             mix.convert<Mutation::Thermodynamics::CONC_TO_Y>(Ys.data(),Ys.data());
 
-            CHECK(Ys.sum() == Approx(1.0).margin(tol));
+            CHECK(Ys.sum() == Catch::Detail::Approx(1.0).margin(tol));
 
             mix.convert<Mutation::Thermodynamics::Y_TO_X>(Ys.data(),Ys.data());
 
-            CHECK(Ys.sum() == Approx(1.0).margin(tol));
+            CHECK(Ys.sum() == Catch::Detail::Approx(1.0).margin(tol));
 
             mix.convert<Mutation::Thermodynamics::X_TO_Y>(Ys.data(),Ys.data());
 
-            CHECK(Ys.sum() == Approx(1.0).margin(tol));
+            CHECK(Ys.sum() == Catch::Detail::Approx(1.0).margin(tol));
 
             mix.convert<Mutation::Thermodynamics::Y_TO_YE>(Ys.data(),Ye.data());
 
-            CHECK(Ys.sum() == Approx(1.0).margin(tol));
+            CHECK(Ys.sum() == Catch::Detail::Approx(1.0).margin(tol));
 
             mix.convert<Mutation::Thermodynamics::YE_TO_XE>(Ye.data(),Xe.data());
 
-            CHECK(Ys.sum() == Approx(1.0).margin(tol));
+            CHECK(Ys.sum() == Catch::Detail::Approx(1.0).margin(tol));
 
             CHECK( Xe.isApprox(Eigen::Map<const Eigen::VectorXd>(mix.getDefaultComposition(),mix.nElements())));
         )

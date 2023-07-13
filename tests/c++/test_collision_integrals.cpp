@@ -20,7 +20,7 @@
  */
 
 #include "mutation++.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -47,10 +47,10 @@ void checkHeavyCollisionIntegrals(
     SharedPtr<CollisionIntegral> Q22 = pair.get("Q22"); REQUIRE(Q22->loaded());
 
     for (int i = 0; i < T.size(); ++i) {
-        CHECK(Q11->compute(T(i))*1.0e20 == Approx(ref(i,0)));
-        CHECK(Q12->compute(T(i))*1.0e20 == Approx(ref(i,1)));
-        CHECK(Q13->compute(T(i))*1.0e20 == Approx(ref(i,2)));
-        CHECK(Q22->compute(T(i))*1.0e20 == Approx(ref(i,3)));
+        CHECK(Q11->compute(T(i))*1.0e20 == Catch::Detail::Approx(ref(i,0)));
+        CHECK(Q12->compute(T(i))*1.0e20 == Catch::Detail::Approx(ref(i,1)));
+        CHECK(Q13->compute(T(i))*1.0e20 == Catch::Detail::Approx(ref(i,2)));
+        CHECK(Q22->compute(T(i))*1.0e20 == Catch::Detail::Approx(ref(i,3)));
     }
 }
 

@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright 2018-2020 von Karman Institute for Fluid Dynamics (VKI)
+ * Copyright 2018 von Karman Institute for Fluid Dynamics (VKI)
  *
  * This file is part of MUlticomponent Thermodynamic And Transport
  * properties for IONized gases in C++ (Mutation++) software package.
@@ -51,10 +51,7 @@ public:
             "formula", m_formula,
             errorNoFormulainReaction());
 
-        parseFormula(
-            args.s_thermo,
-            args.s_surf_state,
-            *(args.s_iter_reaction));
+        parseFormula(args.s_thermo, *(args.s_iter_reaction));
 
         const Mutation::Utilities::IO::XmlElement& node_rate_law =
             *(args.s_iter_reaction->begin());
@@ -62,6 +59,7 @@ public:
         DataGSIRateLaw data_gsi_rate_law = {
             args.s_thermo,
             args.s_transport,
+            m_surf_props,
             node_rate_law,
             m_reactants,
             m_products };
@@ -105,8 +103,7 @@ public:
         std::vector<int>& species, std::vector<int>& species_surf,
         std::string& str_chem_species,
         const Mutation::Utilities::IO::XmlElement& node_reaction,
-        const Mutation::Thermodynamics::Thermodynamics& thermo,
-        const SurfaceState& surf_state)
+        const Mutation::Thermodynamics::Thermodynamics& thermo)
     {
         // State-Machine states for parsing a species formula
         enum ParseState {

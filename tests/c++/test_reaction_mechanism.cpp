@@ -21,7 +21,7 @@
 
 #include "mutation++.h"
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 #include <string>

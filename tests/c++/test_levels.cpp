@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -72,10 +72,10 @@ void testOnce(std::string specName)
         // compute Boltzmann mole fractions
         xth = degen*( (en*t1).exp() );
         xth = xth/(xth.sum());
-        CHECK(xth.sum() == Approx(1.0));
+        CHECK(xth.sum() == Catch::Detail::Approx(1.0));
 
         for (int i = 0; i < ns; ++i)
-            CHECK( xi[i] == Approx(xth[i]) );
+            CHECK( xi[i] == Catch::Detail::Approx(xth[i]) );
     )
 
 }

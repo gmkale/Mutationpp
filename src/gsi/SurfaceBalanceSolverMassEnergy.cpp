@@ -6,7 +6,7 @@
  */
 
 /*
- * Copyright 2014-2020 von Karman Institute for Fluid Dynamics (VKI)
+ * Copyright 2014-2018 von Karman Institute for Fluid Dynamics (VKI)
  *
  * This file is part of MUlticomponent Thermodynamic And Transport
  * properties for IONized gases in C++ (Mutation++) software package.
@@ -75,12 +75,12 @@ public:
           mv_f_unpert(m_neqns),
           m_jac(m_neqns, m_neqns),
           m_tol(1.e-12),
-          m_pert_m(1.e-2),
-          m_pert_T(1.e0),
+          m_pert_m(1.e-4),
+          m_pert_T(1.e-2),
           pos_E(m_ns),
           pos_T_trans(0),
-          m_phi(m_surf_state.solidProps().getPhiRatio()),
-          m_h_v(m_surf_state.solidProps().getEnthalpyVirginMaterial()),
+          m_phi(m_surf_state.getSolidProperties().getPhiRatio()),
+          m_h_v(m_surf_state.getSolidProperties().getEnthalpyVirginMaterial()),
           set_state_with_rhoi_T(1),
           mv_surf_reac_rates(m_ns),
           is_surf_in_thermal_eq(true),
@@ -243,7 +243,7 @@ public:
 
     void updateFunction(Eigen::VectorXd& v_X)
     {
-        applyTolerance(v_X);
+        applyTolerance(mv_X);
         // Comment: (+) If flux enters the volume.
         // Assuming the normal vector of the surface to be pointing from the
         // solid to the gas phase.
@@ -442,6 +442,10 @@ private:
 ObjectProvider<
     SurfaceBalanceSolverMassEnergy, Surface>
     surface_balance_solver_phenomenological_mass_energy("phenomenological_mass_energy");
+
+ObjectProvider<
+    SurfaceBalanceSolverMassEnergy, Surface>
+    surface_balance_solver_detailed_mass_energy("detailed_mass_energy");
 
     } // namespace GasSurfaceInteraction
 } // namespace Mutation

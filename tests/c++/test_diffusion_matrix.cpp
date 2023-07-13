@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -102,7 +102,7 @@ void DiffusionMatrixTests::fluxesSumToZero(Mixture& mix)
 
         // Make sure the sum is zero
         INFO("Ji = " << Ji << "\ndx = " << dx);
-        CHECK(Ji.sum() == Approx(0.0).margin(tol));
+        CHECK(Ji.sum() == Catch::Detail::Approx(0.0).margin(tol));
     )
 }
 

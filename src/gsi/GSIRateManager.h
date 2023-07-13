@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright 2018-2020 von Karman Institute for Fluid Dynamics (VKI)
+ * Copyright 2018 von Karman Institute for Fluid Dynamics (VKI)
  *
  * This file is part of MUlticomponent Thermodynamic And Transport
  * properties for IONized gases in C++ (Mutation++) software package.
@@ -75,9 +75,9 @@ public:
      * of type DataGSIRateManager.
      */
     GSIRateManager(ARGS args)
-       : m_thermo(args.s_thermo ),
-         m_surf_state(args.s_surf_state ),
-         v_reactions(args.s_reactions ) { }
+       : m_thermo(args.s_thermo),
+         m_surf_state(args.s_surf_state),
+         v_reactions(args.s_reactions) { }
 
 //==============================================================================
 

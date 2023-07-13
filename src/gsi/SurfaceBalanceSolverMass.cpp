@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright 2014-2020 von Karman Institute for Fluid Dynamics (VKI)
+ * Copyright 2014-2018 von Karman Institute for Fluid Dynamics (VKI)
  *
  * This file is part of MUlticomponent Thermodynamic And Transport
  * properties for IONized gases in C++ (Mutation++) software package.
@@ -67,7 +67,7 @@ public:
           mv_f_unpert(m_ns),
           m_jac(m_ns, m_ns),
           m_tol(1.e-13),
-          m_pert(1.e-2),
+          m_pert(1.e-4),
           mv_X_unpert(m_ns),
           pos_T_trans(0),
           set_state_with_rhoi_T(1),
@@ -333,6 +333,10 @@ private:
 ObjectProvider<
     SurfaceBalanceSolverMass, Surface>
     surface_balance_solver_phenomenological_mass("phenomenological_mass");
+
+ObjectProvider<
+    SurfaceBalanceSolverMass, Surface>
+    surface_balance_solver_detailed_mass("detailed_mass");
 
     } // namespace GasSurfaceInteraction
 } // namespace Mutation

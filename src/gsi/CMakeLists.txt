@@ -1,5 +1,5 @@
 #
-# Copyright 2018-2020 von Karman Institute for Fluid Dynamics (VKI)
+# Copyright 2018 von Karman Institute for Fluid Dynamics (VKI)
 #
 # This file is part of MUlticomponent Thermodynamic And Transport
 # properties for IONized gases in C++ (Mutation++) software package.
@@ -19,15 +19,28 @@
 # <http://www.gnu.org/licenses/>.
 #
 
+cmake_minimum_required(VERSION 2.6)
+
 add_sources(mutation++
     DiffusionVelocityCalculator.cpp
     GasFourierHeatFluxCalculator.cpp
     GasSurfaceInteraction.cpp
     GSIReactionAblation.cpp
     GSIReactionCatalysis.cpp
+    GSIReactionDetailed.cpp
+    GSIRateLawAdsorption.cpp
+    GSIRateLawZAAdsorption.cpp
+    GSIRateLawDesorptionTST.cpp
+    GSIRateLawDesorptionTST2.cpp
     GSIRateLawGammaConst.cpp
     GSIRateLawGammaT.cpp
+    GSIRateLawERArrhenius.cpp
+    GSIRateLawZAERArrhenius.cpp
+    GSIRateLawHLArrhenius.cpp
+    GSIRateLawHLArrhenius_abla.cpp
+    GSIRateLawArrhenius.cpp
     GSIRateLawSublimation.cpp
+    GSIRateManagerDetailed.cpp
     GSIRateManagerPhenomenological.cpp
     GSIStoichiometryManager.cpp
     MassBlowingRateAblation.cpp
@@ -40,6 +53,7 @@ add_sources(mutation++
     SurfaceBalanceSolverMassEnergy.cpp
     SurfacePropertiesNull.cpp
     SurfacePropertiesAblation.cpp
+    SurfacePropertiesDetailed.cpp
     SurfaceState.cpp
 )
 

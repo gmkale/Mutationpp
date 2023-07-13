@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -53,7 +53,7 @@ TEST_CASE("Energy transfer source terms are zero in equilibrium",
                 EQUILIBRATE_LOOP
                 (
                     double rhoe = mix.mixtureEnergyMass()*mix.density();
-                    CHECK(p_omega->source() / rhoe == Approx(0.0).margin(tol));
+                    CHECK(p_omega->source() / rhoe == Catch::Detail::Approx(0.0).margin(tol));
                 )
 
                 delete p_omega;
@@ -68,7 +68,7 @@ TEST_CASE("Energy transfer source terms are zero in equilibrium",
                 mix.energyTransferSource(omega.data());
                 double rhoe = mix.mixtureEnergyMass()*mix.density();
                 for (int i = 0; i < mix.nEnergyEqns()-1; ++i)
-                    CHECK(omega[i]/rhoe == Approx(0.0).margin(tol));
+                    CHECK(omega[i]/rhoe == Catch::Detail::Approx(0.0).margin(tol));
             )
         }
     )

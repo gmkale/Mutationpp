@@ -20,7 +20,7 @@
  */
 
 #include "mutation++.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -36,7 +36,7 @@ void checkUnits(const Units& units, Dimension dimension, double factor = 1.0)
     INFO("factor = " << factor);
     INFO("dimension = " << dimension.transpose());
     INFO("exponents = " << units.exponents().transpose());
-    CHECK(units.factor() == Approx(factor));
+    CHECK(units.factor() == Catch::Detail::Approx(factor));
     CHECK(units.exponents().isApprox(dimension));
 }
 
@@ -118,9 +118,9 @@ TEST_CASE("Units", "[utilities]")
     CHECK_THROWS_AS(Units("m^2" )   , InvalidInputError);
 
     // Check conversions
-    CHECK(Units("cal").convertTo(1.0, "kJ") == Approx(4.184 / 1000.0));
-    CHECK(Units("Å.cm/s").convertTo(1.0, "m.m/s") == Approx(1.0e-12));
-    CHECK(Units("g/cm.cm.cm").convertToBase(1.0) == Approx(1000.0));
+    CHECK(Units("cal").convertTo(1.0, "kJ") == Catch::Detail::Approx(4.184 / 1000.0));
+    CHECK(Units("Å.cm/s").convertTo(1.0, "m.m/s") == Catch::Detail::Approx(1.0e-12));
+    CHECK(Units("g/cm.cm.cm").convertToBase(1.0) == Catch::Detail::Approx(1000.0));
 
     // String conversion
     CHECK(Units("kg-m/s-s").toString() == "m kg / s^2");

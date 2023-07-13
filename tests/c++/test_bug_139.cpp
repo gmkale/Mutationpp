@@ -24,7 +24,7 @@
 
 #include "mutation++.h"
 #include <Eigen/Dense>
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
 using namespace Mutation;
 using namespace Catch;

@@ -20,7 +20,7 @@
  */
 
 #include "mutation++.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
 using namespace Mutation;
 using namespace Mutation::Kinetics;
@@ -43,19 +43,19 @@ void checkArrheniusRate(
 
     Arrhenius rate(XmlElement(xml.str()), 1);
 
-    CHECK(rate.A() == Approx(A));
-    CHECK(rate.n() == Approx(n));
-    CHECK(rate.T() == Approx(theta));
+    CHECK(rate.A() == Catch::Detail::Approx(A));
+    CHECK(rate.n() == Catch::Detail::Approx(n));
+    CHECK(rate.T() == Catch::Detail::Approx(theta));
 
     for (int i = 0; i < 10; ++i) {
         double T = i * 1000.0 + 1000.0;
         double k = A * std::pow(T, n) * std::exp(-theta / T);
 
-        CHECK( rate.getLnRate(std::log(T), 1.0/T) == Approx(std::log(k)) );
+        CHECK( rate.getLnRate(std::log(T), 1.0/T) == Catch::Detail::Approx(std::log(k)) );
 
         CHECK(
             rate.derivative(k, std::log(T), 1.0/T) ==
-            Approx(k * (n + theta / T) / T)
+            Catch::Detail::Approx(k * (n + theta / T) / T)
         );
     }
 }

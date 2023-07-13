@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -114,7 +114,7 @@ TEST_CASE("Solution of the MassEnergyBalanceSolver is converged.", "[gsi]")
 
         // Compute error
         double err = F.lpNorm<Infinity>();
-        CHECK(err == Approx(0.0).margin(tol));
+        CHECK(err == Catch::Detail::Approx(0.0).margin(tol));
     }
 
     SECTION("Mass and Energy Balance Catalysis in Radiative Equilibrium.")
@@ -207,7 +207,7 @@ TEST_CASE("Solution of the MassEnergyBalanceSolver is converged.", "[gsi]")
 
         // Compute error
         double err = F.lpNorm<Infinity>();
-        CHECK(err == Approx(0.0).margin(tol));
+        CHECK(err == Catch::Detail::Approx(0.0).margin(tol));
     }
 
     SECTION("Mass and Energy Balance Ablation.")
@@ -305,7 +305,7 @@ TEST_CASE("Solution of the MassEnergyBalanceSolver is converged.", "[gsi]")
 
         // Compute error
         double err = F.lpNorm<Infinity>();
-        CHECK(err == Approx(0.0).margin(tol));
+        CHECK(err == Catch::Detail::Approx(0.0).margin(tol));
     }
 
     SECTION("Mass and Energy Balance with Two Temperatures at Equilibrium."){
@@ -403,6 +403,6 @@ TEST_CASE("Solution of the MassEnergyBalanceSolver is converged.", "[gsi]")
 
         // Compute error
         double err = F.lpNorm<Infinity>();
-        CHECK(err == Approx(0.0).margin(tol));
+        CHECK(err == Catch::Detail::Approx(0.0).margin(tol));
     }
 }

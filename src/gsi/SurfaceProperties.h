@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright 2018-2020 von Karman Institute for Fluid Dynamics (VKI)
+ * Copyright 2018 von Karman Institute for Fluid Dynamics (VKI)
  *
  * This file is part of MUlticomponent Thermodynamic And Transport
  * properties for IONized gases in C++ (Mutation++) software package.
@@ -90,7 +90,7 @@ public:
     /**
      * Returns the gas phase species associated with the surface species.
      */
-    virtual int surfaceToGasIndex(const int& i_surf_species) const {
+    virtual int surfaceToGasIndex(const int& i_surf_sp) const {
         return -1;
     }
 
@@ -100,6 +100,69 @@ public:
      */
     virtual size_t nSurfaceSpecies() const { return 0; }
 
+//==============================================================================
+    /**
+     * Returns to which site category the species belong.
+     */
+    virtual int siteSpeciesToSiteCategoryIndex(const int& i_site_sp) const {
+        return -1;
+    }
+
+//==============================================================================
+    /**
+     * Returns the number of species in Sites.
+     */
+    virtual size_t nSiteSpecies() const { return 0; }
+
+//==============================================================================
+    /**
+     * Returns the number of site categories.
+     */
+    virtual size_t nSiteCategories() const { return 0; }
+
+//==============================================================================
+    /**
+     *
+     */
+    virtual size_t nSpeciesInSiteCategory(const int& i_site_c) const {
+        return -1;
+    }
+
+//==============================================================================
+    /**
+     * Returns the site surface density in a site category.
+     */
+    virtual double nSiteDensityInCategory(const int& i_site_c) const {
+        return -1.;
+    }
+//==============================================================================
+    virtual void setSurfaceSiteCoverageFrac(
+        const Eigen::ArrayXd& v_site_cov_frac) {
+        throw LogicError()
+        << "setSurfaceSiteCoverageFrac can be called only "
+        << "when detailed surface reactions are considered!";
+    }
+
+//==============================================================================
+    virtual Eigen::ArrayXd getSurfaceSiteCoverageFrac() const {
+        throw LogicError()
+        << "getSurfaceSiteCoverageFrac can be called only "
+        << "when detailed surface reactions are considered!";
+    }
+
+//==============================================================================
+    virtual void setIsSurfaceCoverageSteady(const bool& surf_cov_steady) {
+        throw LogicError()
+        << "setSurfaceCoverageSteady can be called only "
+        << "when detailed surface reactions are considered!";
+    }
+
+//==============================================================================
+    virtual bool isSurfaceCoverageSteady() const {
+        throw LogicError()
+        << "isSurfaceCoverageSteady can be called only "
+        << "when detailed surface reactions are considered!";
+    }
 //==============================================================================
 
 };

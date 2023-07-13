@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -95,7 +95,7 @@ TEST_CASE("Surface chemical rates compared with analytical solution.", "[gsi]")
                 INFO("The analytical solution for species " << i
                 << " is equal to " << omega(i) << " while Mutation++ gives "
                 << wdot(i) << ".\n");
-                CHECK(wdot(i) == Approx(omega(i)).epsilon(tol));
+                CHECK(wdot(i) == Catch::Detail::Approx(omega(i)).epsilon(tol));
             }
         }
     }
@@ -203,7 +203,7 @@ TEST_CASE("Surface chemical rates compared with analytical solution.", "[gsi]")
                 INFO("The analytical solution for species " << i
                 << " is equal to " << omega(i) << " while Mutation++ gives "
                 << wdot(i) << ".\n");
-                CHECK(wdot(i) == Approx(omega(i)).epsilon(tol));
+                CHECK(wdot(i) == Catch::Detail::Approx(omega(i)).epsilon(tol));
             }
         }
     }
@@ -272,7 +272,7 @@ TEST_CASE("Surface chemical rates compared with analytical solution.", "[gsi]")
                 INFO("The analytical solution for species " << i
                 << " is equal to " << omega(i) << " while Mutation++ gives "
                 << wdot(i) << ".\n");
-                CHECK(wdot(i) == Approx(omega(i)).epsilon(tol));
+                CHECK(wdot(i) == Catch::Detail::Approx(omega(i)).epsilon(tol));
             }
         }
     }
@@ -316,7 +316,7 @@ TEST_CASE("Surface chemical rates compared with analytical solution.", "[gsi]")
                 INFO("The analytical solution for species " << i
                 << " is equal to " << omega(i) << " while Mutation++ gives "
                 << wdot(i) << ".\n");
-                CHECK(wdot(i) == Approx(omega(i)).epsilon(tol));
+                CHECK(wdot(i) == Catch::Detail::Approx(omega(i)).epsilon(tol));
             }
         }
     }

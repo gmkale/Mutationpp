@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -46,7 +46,7 @@ TEST_CASE("Species production rates sum to zero", "[kinetics]")
                 tmps.setConstant(500.0*i + 500.0);
                 mix.setState(rhoi.data(), tmps.data(), 1);
                 mix.netProductionRates(wdot.data());
-                CHECK(wdot.sum()/wdot.lpNorm<Infinity>() == Approx(0.0).margin(tol));
+                CHECK(wdot.sum()/wdot.lpNorm<Infinity>() == Catch::Detail::Approx(0.0).margin(tol));
             }
         }
 
@@ -56,7 +56,7 @@ TEST_CASE("Species production rates sum to zero", "[kinetics]")
                     tmps[k] = 500.0*i + 500.0 + 50.0*k*std::pow(-1.0,(double) k);
                 mix.setState(rhoi.data(), tmps.data(), 1);
                 mix.netProductionRates(wdot.data());
-                CHECK(wdot.sum()/wdot.lpNorm<Infinity>() == Approx(0.0).margin(tol));
+                CHECK(wdot.sum()/wdot.lpNorm<Infinity>() == Catch::Detail::Approx(0.0).margin(tol));
             }
         }
     )
@@ -75,7 +75,7 @@ TEST_CASE("Species production rates are zero in equilibrium", "[kinetics]")
         (
             mix.netProductionRates(wdot.data());
             for (int i = 0; i < mix.nSpecies(); ++i)
-                CHECK(wdot[i] == Approx(0.0).margin(tol));
+                CHECK(wdot[i] == Catch::Detail::Approx(0.0).margin(tol));
         )
     )
 }

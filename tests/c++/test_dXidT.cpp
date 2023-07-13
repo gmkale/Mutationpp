@@ -28,7 +28,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -50,7 +50,7 @@ TEST_CASE("Equilibrium mole fractions derivatives sum to zero",
         (
             mix.dXidT(dx.data());
             INFO("dx = " << dx);
-            REQUIRE(dx.sum() == Approx(0.0).margin(tol));
+            REQUIRE(dx.sum() == Catch::Detail::Approx(0.0).margin(tol));
         )
     )
 }

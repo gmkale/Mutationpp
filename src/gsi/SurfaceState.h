@@ -6,7 +6,7 @@
  */
 
 /*
- * Copyright 2014-2020 von Karman Institute for Fluid Dynamics (VKI)
+ * Copyright 2014-2018 von Karman Institute for Fluid Dynamics (VKI)
  *
  * This file is part of MUlticomponent Thermodynamic And Transport
  * properties for IONized gases in C++ (Mutation++) software package.
@@ -125,20 +125,20 @@ public:
     /**
      * Returns a constant reference to the surface properties class.
      */
-    const SurfaceProperties& surfaceProps() const {
+    SurfaceProperties& getSurfaceProperties() const {
          return *mp_surf_props;
     }
 
     /**
-     * Returns a constant reference to the surface properties class.
+     * Returns a constant reference to the solid properties class.
      */
-    const SolidProperties& solidProps() const {
+    const SolidProperties& getSolidProperties() const {
         return *mp_solid_props;
     }
 
 private:
     const Mutation::Thermodynamics::Thermodynamics& m_thermo;
-    const SurfaceProperties* mp_surf_props;
+    SurfaceProperties* mp_surf_props;
     const SolidProperties* mp_solid_props;
 
     const size_t m_ns;

@@ -22,7 +22,7 @@
 #include "mutation++.h"
 #include "Configuration.h"
 #include "TestMacros.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <Eigen/Dense>
 
 using namespace Mutation;
@@ -55,7 +55,7 @@ TEST_CASE("stefanMaxwell yields diffusion fluxes which sum to zero",
             Ji.array() *= rho * Map<const ArrayXd>(mix.Y(), mix.nSpecies());
 
             // Make sure the sum is zero
-            CHECK(Ji.sum() == Approx(0.0).margin(tol));
+            CHECK(Ji.sum() == Catch::Detail::Approx(0.0).margin(tol));
         )
     )
 }
@@ -86,7 +86,7 @@ TEST_CASE("stefanMaxwell yields zero net conduction current",
                 Ji[i] *= mix.X()[i]*mix.speciesCharge(i);
 
             // Make sure the sum is zero
-            CHECK(Ji.sum() == Approx(0.0).margin(tol));
+            CHECK(Ji.sum() == Catch::Detail::Approx(0.0).margin(tol));
         )
     )
 }

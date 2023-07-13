@@ -1,6 +1,6 @@
 #include "HarmonicOscillator.h"
 #include "TemporaryFile.h"
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
 using namespace Mutation::Thermodynamics;
 using namespace Catch;
@@ -50,14 +50,14 @@ TEST_CASE("Harmonic oscillator energy", "[thermo]")
     {
         std::vector<double> temps = { 1.0 };
         HarmonicOscillator ho(temps);
-        CHECK(ho.energy(1.0) == Approx(0.581976706869326));
+        CHECK(ho.energy(1.0) == Catch::Detail::Approx(0.581976706869326));
     }
 
     SECTION("One characteristic temperature")
     {
         std::vector<double> temps = { 1.0, 2.0, 3.0 };
         HarmonicOscillator ho(temps);
-        CHECK(ho.energy(1.0) == Approx(1.052199081842426));
+        CHECK(ho.energy(1.0) == Catch::Detail::Approx(1.052199081842426));
     }
 }
 
