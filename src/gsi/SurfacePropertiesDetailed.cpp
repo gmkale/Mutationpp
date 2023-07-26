@@ -156,10 +156,10 @@ public:
 //==============================================================================
 
     /**
-     * Returns the index of the surface species. Firstly the species in sites
-     * and the empty sites according to the order they are declared in the
+     * Returns the index of the surface species. Firstly the species in sites (N-s, O-s, etc.)
+     * and the empty sites (s) according to the order they are declared in the
      * input file and then the surface species composing the
-     * surface. All of them are following the gas phase species.
+     * surface (C-b). All of them are following the gas phase species.
      */
     int surfaceSpeciesIndex(const std::string& str_sp) const {
         // Looping over sites
@@ -301,6 +301,17 @@ private:
 
         const int non_empty =  v_species.size();
         for (int i_sp = 0; i_sp < non_empty; ++i_sp) {
+
+	    if (v_species[i_sp] == "O*") {
+                // search for oxygen instead
+		int id_sp = m_thermo.speciesIndex("O");
+                // Add an extra oxygen in the vector of site species (mv_site_sp_to_gas_idx)
+		// To ensure this is correct, always include O* as the last species? 
+		mv_site_sp_to_gas_idx.push_back(id_sp); //Associates O in gas phase with O* at surf?
+            	mv_site_sp.push_back(v_species[i_sp] + '-' + label); // Sets the ID of the surface species
+		continue;
+	    }
+
             int id_sp = m_thermo.speciesIndex(v_species[i_sp]);
 
             if (id_sp == -1) {

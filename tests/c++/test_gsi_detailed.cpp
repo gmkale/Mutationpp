@@ -31,7 +31,7 @@ using namespace Mutation;
 using namespace Catch;
 using namespace Eigen;
 
-TEST_CASE("Detailed surface chemictry tests.","[gsi]")
+TEST_CASE("Detailed surface chemistry tests.","[gsi]")
 {
     const double tol = 100. * std::numeric_limits<double>::epsilon();
     const double tol_det = 1.e2 * std::numeric_limits<double>::epsilon();
@@ -526,9 +526,10 @@ TEST_CASE("Detailed surface chemictry tests.","[gsi]")
         for (int i = 0; i < 14; i++) {
             for (int j = 0; j < 12; j++) {
                 T = (j+6) * dT;
-                //std::cout << T <<  "   " << P << std::endl;      
-                //T = 2407.;
-                //P = 1500.;
+                //std::cout << T <<  "   " << P << std::endl; 
+     
+                T = 1000.;
+                P = 1600.;
 
                 mixFRC.equilibrate(T, P);
                 mixFRC.densities(v_rhoi.data());
@@ -557,17 +558,19 @@ TEST_CASE("Detailed surface chemictry tests.","[gsi]")
 		double BB = (kfads + kfer1 + kfer2)*nN + kfdes + kflh2;
 		double C = kfads * B * nN;
 
-                v_surf_cov_frac(1) = (sqrt(BB*BB + 4.*A*C) - BB )/ (2.0 * A);
-                v_surf_cov_frac(0) = B - v_surf_cov_frac(1);
+                v_surf_cov_frac(1) = (sqrt(BB*BB + 4.*A*C) - BB )/ (2.0 * A); //N-s
+                v_surf_cov_frac(0) = B - v_surf_cov_frac(1); //s
 
                 //v_surf_cov_frac(0) = (kfdes + nN*(kfer1+kfer2))/(nN*(kfads + kfer1 + kfer2) + kfdes)*B;
                 //v_surf_cov_frac(1) = B - v_surf_cov_frac(0);
 
                 v_surf_cov_mpp_frac = mixFRC.getSurfaceProperties().getSurfaceSiteCoverageFrac();
-                v_surf_cov_mpp_frac *= B;
+                //v_surf_cov_mpp_frac *= B;
 
-		//std::cout << v_surf_cov_frac(0) << "   " << v_surf_cov_frac(1)<< std::endl;
-		//std::cout << v_surf_cov_mpp_frac(0) << "   " << v_surf_cov_mpp_frac(1)<< std::endl;
+		std::cout << v_surf_cov_frac(0) << "   " << v_surf_cov_frac(1)<< std::endl;
+		std::cout << v_surf_cov_mpp_frac(0) << "   " << v_surf_cov_mpp_frac(1)<< std::endl;
+		
+		v_surf_cov_mpp_frac *= B;
 
                 //Check total number of sites is respected and free spot is the same of analytical solution
                 CHECK(v_surf_cov_mpp_frac(0) >= 0.0);
