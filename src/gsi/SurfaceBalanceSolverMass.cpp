@@ -172,8 +172,12 @@ public:
         // Changing to the solution variables
         computeMoleFracfromPartialDens(mv_rhoi, mv_X);
 
+        //std::cout << "SMB Prior " << mv_X << std::endl;
+
         // Solving
         mv_X = solve(mv_X);
+
+        //std::cout << "SMB Post " << mv_X << std::endl;
 
         applyTolerance(mv_X);
         computePartialDensfromMoleFrac(mv_X, mv_rhoi);

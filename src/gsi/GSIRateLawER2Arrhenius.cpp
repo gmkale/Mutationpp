@@ -51,6 +51,7 @@ public:
           pos_T_trans(0),
           pos_gas_r(0),
           pos_site_r(1)
+          //idx_react(0)
     {
         assert(args.s_node_rate_law.tag() == "ER_2_arrhenius");
 
@@ -69,6 +70,7 @@ public:
         int idx_site = mv_react[pos_site_r];
         // Error if idx_site > ns
 
+        //m_mass = m_thermo.speciesMw(args.s_surf_props.surfaceToGasIndex(mv_react[idx_react])) / NA;
         m_site_categ = m_surf_props.siteSpeciesToSiteCategoryIndex(idx_site);
         m_n_sites = m_surf_props.nSiteDensityInCategory(m_site_categ);
     }
@@ -83,11 +85,14 @@ public:
         const Eigen::VectorXd& v_rhoi, const Eigen::VectorXd& v_Tsurf) const
     {
     	const double Tsurf = v_Tsurf(pos_T_trans);
+        //const double T_beam = 1000;
+
+        //const double thermal_speed = sqrt((8. * KB * T_beam) / (PI * m_mass));
 
     	const int set_state_with_rhoi_T = 1;
         m_thermo.setState(v_rhoi.data(), v_Tsurf.data(), set_state_with_rhoi_T);
-        const double thermal_speed =
-            m_transport.speciesThermalSpeed(m_idx_gas);
+        
+        const double thermal_speed =  m_transport.speciesThermalSpeed(m_idx_gas);
 
         return m_pre_exp * thermal_speed /
             (4. * m_n_sites * m_n_sites) * exp(-m_T_act / Tsurf);
@@ -97,13 +102,17 @@ private:
     const size_t pos_T_trans;
     const size_t pos_gas_r;
     const size_t pos_site_r;
+    //const size_t idx_react;
 
     int m_idx_gas;
     int m_site_categ;
     double m_n_sites;
+    //double m_mass;
+    double thermal_speed;
 
     double m_pre_exp;
     double m_T_act;
+    //double T_beam;
 
     const std::vector<int>& mv_react;
     const SurfaceProperties& m_surf_props;

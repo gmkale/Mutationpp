@@ -127,6 +127,16 @@ public:
 
         // Initializing surface composition
         mv_site_cov_frac.resize(n_site_sp);
+
+        //std::cout << "--------------------------" << std::endl;
+        //std::cout << mv_site_cov_frac.size() << std::endl;
+       //std::cout << "--------------------------" << std::endl;
+
+        //std::cout << "--------------------------" << std::endl;
+        //std::cout << mv_site_cov_frac << std::endl;
+        //std::cout << "--------------------------" << std::endl;
+
+        // initialized to fraction of (1 / (number of site species + empty sites))
         int p = 0;
         for (int i = 0; i < n_site_categ; i++) {
             int nsp = mv_sp_in_site[i];
@@ -134,6 +144,11 @@ public:
                 mv_site_cov_frac(j) = 1. / nsp;
             p += nsp;
         }
+
+        //std::cout << "--------------------------" << std::endl;
+        //std::cout << mv_site_cov_frac << std::endl;
+        //std::cout << "--------------------------" << std::endl;
+
 
         for (int i = 0; i < n_site_categ; i++)
             for (int j = 0; j < mv_sp_in_site[i]; j++)
@@ -159,7 +174,7 @@ public:
      * Returns the index of the surface species. Firstly the species in sites (N-s, O-s, etc.)
      * and the empty sites (s) according to the order they are declared in the
      * input file and then the surface species composing the
-     * surface (C-b). All of them are following the gas phase species.
+     * surface (C-b). All of them are following the gas phase species.?? Not sure this description is correct
      */
     int surfaceSpeciesIndex(const std::string& str_sp) const {
         // Looping over sites
@@ -303,28 +318,49 @@ private:
         for (int i_sp = 0; i_sp < non_empty; ++i_sp) {
 
 	    if (v_species[i_sp] == "O*") {
-                // search for oxygen instead
-		int id_sp = m_thermo.speciesIndex("O");
-                // Add an extra oxygen in the vector of site species (mv_site_sp_to_gas_idx)
-		// To ensure this is correct, always include O* as the last species? 
-		mv_site_sp_to_gas_idx.push_back(id_sp); //Associates O in gas phase with O* at surf?
-            	mv_site_sp.push_back(v_species[i_sp] + '-' + label); // Sets the ID of the surface species
-		continue;
+            // search for oxygen instead
+		    int id_sp = m_thermo.speciesIndex("O");
+            // Add an extra oxygen in the vector of site species (mv_site_sp_to_gas_idx)
+		    // To ensure this is correct, always include O* as the last species? 
+		    mv_site_sp_to_gas_idx.push_back(id_sp); //Associates O in gas phase with O* at surf?
+            mv_site_sp.push_back(v_species[i_sp] + '-' + label); // Sets the ID of the surface species
+		    //continue;
 	    }
+
+        if (v_species[i_sp] == "N*") {
+            //search for N instead
+            int id_sp = m_thermo.speciesIndex("N");
+            mv_site_sp_to_gas_idx.push_back(id_sp);
+            mv_site_sp.push_back(v_species[i_sp] + '-' + label);
+            //continue;
+        }
+
+        if (v_species[i_sp] != "O*" && v_species[i_sp] != "N*") {
 
             int id_sp = m_thermo.speciesIndex(v_species[i_sp]);
 
             if (id_sp == -1) {
                 throw InvalidInputError("SurfaceProperties",
-                v_species[i_sp]) << "Site species " <<
-                v_species[i_sp] << " is not " <<
-                "a species of the gas mixture!";
+                    v_species[i_sp]) << "Site species " <<
+                    v_species[i_sp] << " is not " <<
+                    "a species of the gas mixture!";
             }
 
             mv_site_sp_to_gas_idx.push_back(id_sp);
             mv_site_sp.push_back(v_species[i_sp] + '-' + label);
         }
+        //if (v_species[i_sp] != "N*") {
+        //    int id_sp = m_thermo.speciesIndex(v_species[i_sp]);
+        //    mv_site_sp_to_gas_idx.push_back(id_sp);
+        //    mv_site_sp.push_back(v_species[i_sp] + '-' + label);
+        //}
+            //mv_site_sp_to_gas_idx.push_back(id_sp);
+            //mv_site_sp.push_back(v_species[i_sp] + '-' + label);
+        }
         size_t const empty_site = 1;
+
+        //std::cout << "Non-empty " << non_empty << std::endl;
+
         size_t tot_sp_in_site = empty_site + non_empty;
         mv_sp_in_site.push_back(tot_sp_in_site);
     }

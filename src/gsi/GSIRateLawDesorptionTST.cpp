@@ -59,6 +59,7 @@ public:
 
         m_mass_des = m_thermo.speciesMw(
             args.s_surf_props.surfaceToGasIndex(mv_react[idx_react])) / NA;
+
         m_site_categ = m_surf_props.siteSpeciesToSiteCategoryIndex(
             mv_react[idx_react]);
         m_n_sites = m_surf_props.nSiteDensityInCategory(m_site_categ);
@@ -74,10 +75,22 @@ public:
     double forwardReactionRateCoefficient(
         const Eigen::VectorXd& v_rhoi, const Eigen::VectorXd& v_Tsurf) const
     {
-    	const double Tsurf = v_Tsurf(pos_T_trans);
+    	double Tsurf = v_Tsurf(pos_T_trans);
 
-    	const double pre_exp = 2 * PI * m_mass_des * KB * KB * Tsurf * Tsurf
-            / (HP * HP * HP * m_n_sites);
+    	double pre_exp = (2 * PI * m_mass_des * KB * KB * Tsurf * Tsurf)
+            / ( HP * HP * HP * m_n_sites);
+
+        //double kf_hold = ((2 * PI * m_mass_des * KB * KB * Tsurf * Tsurf) / ( HP * HP * HP * m_n_sites)) * exp(-m_T_des / Tsurf);
+
+        //std::cout << "--------------------------" << std::endl;
+        //std::cout << "k_des " << kf_hold << std::endl;
+        //std::cout << "--------------------------" << std::endl;
+
+        //std::cout << "Des Mass " << m_mass_des << std::endl;
+        //std::cout << "h " << HP << std::endl;
+        //std::cout << "N sites " << m_n_sites << std::endl;
+        //std::cout << "kf Des " << kf_hold << std::endl;
+        //std::cout << "--------------------------" << std::endl;
 
         return pre_exp * exp(-m_T_des / Tsurf);
     }

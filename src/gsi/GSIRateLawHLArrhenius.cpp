@@ -50,7 +50,8 @@ public:
           mv_react(args.s_reactants),
           pos_T_trans(0),
           pos_gas_r(0),
-          pos_site_r(1)
+          pos_site_r(1),
+          idx_react(0)
     {
         assert(args.s_node_rate_law.tag() == "LH_arrhenius");
 
@@ -63,12 +64,16 @@ public:
 
         // For the gas in the reactants
         m_idx_gas = mv_react[pos_gas_r];
-        //std::cout << "m_idx_gas is " << m_idx_gas << std::endl; //it is number 10
+        
+        std::cout << "m_idx_gas is " << m_idx_gas << std::endl; //it is number 10
         // Error if m_idx_gas > ns
 
         // For the sites
         int idx_site = mv_react[pos_site_r];
         // Error if idx_site > ns
+
+        m_mass = m_thermo.speciesMw(
+            args.s_surf_props.surfaceToGasIndex(mv_react[idx_react])) / NA;
 
         m_site_categ = m_surf_props.siteSpeciesToSiteCategoryIndex(idx_site);
         m_n_sites = m_surf_props.nSiteDensityInCategory(m_site_categ);
@@ -85,16 +90,27 @@ public:
     {
     	const double Tsurf = v_Tsurf(pos_T_trans);
 
+        const double F_2 = sqrt((PI * KB * Tsurf) / (2 * m_mass));
+
     	const int set_state_with_rhoi_T = 1;
         m_thermo.setState(v_rhoi.data(), v_Tsurf.data(), set_state_with_rhoi_T);
         //const double thermal_speed =
         //    m_transport.speciesThermalSpeed(m_idx_gas);
 
+        std::cout << "Mass " << m_mass << std::endl;
+        std::cout << "Tsurf " << Tsurf << std::endl;
+        std::cout << "F_2 " << F_2 << std::endl;
+
 	//std::cout << "th speed is" << thermal_speed << std::endl;
 	double m_n = 0.0140067 / NA; //hardcoded for now
+
+
+
+
 	//return m_pre_exp *sqrt(1.0/m_n_sites) * sqrt(PI*KB*v_Tsurf[0]/ (8.0*m_n)) * exp(-21000.0/ v_Tsurf[0]);
 	//return m_pre_exp *sqrt(1.0/m_n_sites) * sqrt(PI*KB*v_Tsurf[0]/ (8.0*m_n)) * exp(-m_T_act/ v_Tsurf[0]);
-	return m_pre_exp *sqrt(1.0/m_n_sites) * sqrt(PI*KB*v_Tsurf[0]/ (2.0*m_n)) * exp(-m_T_act/ v_Tsurf[0]);
+
+	return m_pre_exp *sqrt(NA/m_n_sites) * sqrt(PI*KB*v_Tsurf[0]/ (2.0*m_n)) * exp(-m_T_act/ v_Tsurf[0]);
 
         //return m_pre_exp * thermal_speed * sqrt(1.0/m_n_sites)/
         //    (4.) * exp(-m_T_act / Tsurf);

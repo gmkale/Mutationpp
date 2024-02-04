@@ -89,6 +89,12 @@ public:
         const double thermal_speed =
             m_transport.speciesThermalSpeed(m_idx_gas);
 
+        //double kf_hold = m_pre_exp * thermal_speed / (4. * m_n_sites) * exp(-m_T_act / Tsurf);
+
+        //std::cout << "--------------------------" << std::endl;
+        //std::cout << "k_er " << kf_hold << std::endl;
+        //std::cout << "--------------------------" << std::endl;
+
         return m_pre_exp * thermal_speed /
             (4. * m_n_sites) * exp(-m_T_act / Tsurf);
     }

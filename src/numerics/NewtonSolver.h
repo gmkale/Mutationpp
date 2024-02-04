@@ -32,6 +32,7 @@
 #include <cassert>
 #include <typeinfo>
 #include <iostream>
+#include <iomanip>
 
 namespace Mutation {
     namespace Numerics {
@@ -110,7 +111,7 @@ NewtonSolver<T, Solver>::NewtonSolver()
     : m_max_iter(20),
       m_jacobian_lag(1),
       m_epsilon(1.0e-8),
-      m_conv_hist(false)
+      m_conv_hist(true)
 { }
 
 //==============================================================================
@@ -120,6 +121,9 @@ T& NewtonSolver<T, Solver>::solve(T& x)
 {
     using std::cout;
     using std::endl;
+    std::cout << std::setprecision(10);
+
+    //std::cout << " Jacobian Solver Called " << std::endl;
 
     // Make sure jacobian is updated on first iteration
     unsigned int jac = m_jacobian_lag;
@@ -163,6 +167,9 @@ T& NewtonSolver<T, Solver>::solve(T& x)
         cout << "Newton failed to converge after " << m_max_iter
              << " iterations with a relative residual of " << resnorm << endl;
     }
+
+    //std::cout << " Covs " << x << std::endl;
+
     return x;
 }
 

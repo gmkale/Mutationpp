@@ -92,7 +92,13 @@ public:
         //return m_pre_exp * thermal_speed * sqrt(NA/m_n_sites)/
         //    (4.) * exp(-m_T_act / Tsurf);
 
-	return m_pre_exp*exp(-m_T_act / Tsurf); 
+        //double kf_hold = m_pre_exp * exp(-m_T_act / Tsurf);
+
+        //std::cout << "--------------------------" << std::endl;
+        //std::cout << "k_LHabla " << kf_hold << std::endl;
+        //std::cout << "--------------------------" << std::endl;
+
+	    return m_pre_exp*exp(-m_T_act / Tsurf); 
     }
 
 private:

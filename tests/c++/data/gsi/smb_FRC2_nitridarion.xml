@@ -33,7 +33,7 @@
 
         <!-- CN production -->
         <reaction type="detailed" formula="N-s + C-b => CN + s">
-            <LH_abla_arrhenius  pre_exp = "1e8" T = "20676.0"/>
+            <LH_abla_arrhenius  pre_exp = "1.e8" T = "20676.0"/>
         </reaction>
     </surface_chemistry>
 

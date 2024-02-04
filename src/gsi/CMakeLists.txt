@@ -29,15 +29,32 @@ add_sources(mutation++
     GSIReactionCatalysis.cpp
     GSIReactionDetailed.cpp
     GSIRateLawAdsorption.cpp
+    GSIRateLawAdsorption_MB.cpp	
     GSIRateLawZAAdsorption.cpp
     GSIRateLawDesorptionTST.cpp
     GSIRateLawDesorptionTST2.cpp
     GSIRateLawGammaConst.cpp
     GSIRateLawGammaT.cpp
+    GSIRateLawArrheniusZA.cpp
+    GSIRateLawERZA.cpp
+    GSIRateLawAdsorptionZA.cpp
+    GSIRateLaw_k1b_ZA.cpp
+    GSIRateLaw_k2b_ZA.cpp
+    GSIRateLaw_k3b_ZA.cpp
+    GSIRateLaw_k4b_ZA.cpp
+    GSIRateLaw_k5b_ZA.cpp
+    GSIRateLaw_k6b_ZA.cpp
+    GSIRateLaw_k7b_ZA.cpp
+    GSIRateLaw_k8b_ZA.cpp
+    GSIRateLaw_k9b_ZA.cpp
+    GSIRateLaw_k10b_ZA.cpp	
     GSIRateLawERArrhenius.cpp
+    GSIRateLawERArrhenius_MB.cpp
     GSIRateLawER2Arrhenius.cpp
+    GSIRateLawER2Arrhenius_MB.cpp
     GSIRateLawZAERArrhenius.cpp
-    GSIRateLawHLArrhenius.cpp
+    GSIRateLawLHArrhenius.cpp
+    GSIRateLawLHArrhenius_MB.cpp
     GSIRateLawHLArrhenius_abla.cpp
     GSIRateLawArrhenius.cpp
     GSIRateLawSublimation.cpp

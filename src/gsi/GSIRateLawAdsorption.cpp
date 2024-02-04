@@ -70,6 +70,8 @@ public:
         const int n_stick_sp = 1;
         m_stick_coef_power = mv_react.size() - n_stick_sp;
 
+        m_mass = m_thermo.speciesMw(args.s_surf_props.surfaceToGasIndex(mv_react[idx_react])) / NA;
+
         m_site_categ = m_surf_props.siteSpeciesToSiteCategoryIndex(
             mv_react[idx_site]);
         m_n_sites = pow(m_surf_props.nSiteDensityInCategory(
@@ -92,13 +94,42 @@ public:
         const double thermal_speed =
             m_transport.speciesThermalSpeed(mv_react[idx_react]);
 
+        //const double TS_check = sqrt((8. * KB * Tsurf) / (PI * m_mass));
+        
+
+        //std::cout << "--------------------------" << std::endl;
+        //std::cout << "thermal speed " << thermal_speed << std::endl;
+        //std::cout << "--------------------------" << std::endl;
+
         //  Sticking coefficient temperature correction
         double stick_coef_corr = m_stick_coef;
         if (Tsurf > m_T_thresh)
         	stick_coef_corr *= exp(-m_beta_T_corr * (Tsurf - m_T_thresh));
 
-        return stick_coef_corr * thermal_speed /
-            (4 * m_n_sites) * exp(-m_T_act / Tsurf);
+        //std::cout << "--------------------------" << std::endl;
+        //std::cout << "stick coeff corr " << stick_coef_corr << std::endl;
+        //std::cout << "--------------------------" << std::endl;
+
+        //double kf_hold = ((stick_coef_corr * thermal_speed) /
+        //    (4 * m_n_sites)) * exp(-m_T_act / Tsurf);
+
+        //std::cout << "--------------------------" << std::endl;
+        //std::cout << "Tsurf " << Tsurf << std::endl;
+        //std::cout << "Mass " << m_mass << std::endl;
+        //std::cout << "Sticking Coeff Corr " << stick_coef_corr << std::endl;
+        //std::cout << "Act. T " << m_T_act << std::endl;
+        //std::cout << "Thermal Speed " << thermal_speed << std::endl;
+        ////std::cout << "TS Check " << TS_check << std::endl;
+        //std::cout << "N sites " << m_n_sites << std::endl;
+        //std::cout << "kf Ads " << kf_hold << std::endl;
+        //std::cout << "--------------------------" << std::endl;
+
+        //std::cout << "--------------------------" << std::endl;
+        //std::cout << "k_ads " << kf_hold << std::endl;
+        //std::cout << "--------------------------" << std::endl;
+
+        return ((stick_coef_corr * thermal_speed) /
+            (4 * m_n_sites)) * exp(-m_T_act / Tsurf);
     }
 
 private:
@@ -110,6 +141,7 @@ private:
     double m_n_sites;
     double m_stick_coef;
     double m_T_act;
+    double m_mass;
 
     double m_T_thresh;
     double m_beta_T_corr;
